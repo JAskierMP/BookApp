@@ -1,7 +1,6 @@
 let bookTemplate = Handlebars.compile(document.querySelector('#template-book').innerHTML);
-console.log(bookTemplate);
 const listaKsiazek = document.getElementsByClassName('books-list');
-console.log(listaKsiazek);
+//console.log(listaKsiazek);
 const booksListElement = listaKsiazek.item(0);
 
 function render() {
@@ -23,7 +22,7 @@ const initActions = function () {
   //console.log(listaOkładekTablica);
 
   const booksList = document.querySelector('.books-list');
-  console.log(booksList);
+  //console.log(booksList);
   //for (let okładka of listaOkładekTablica) {
   booksList.addEventListener('dblclick', function (event) {
     event.preventDefault();
@@ -39,19 +38,50 @@ const initActions = function () {
 
       if (!favoriteBooks.includes(dataID)) {
         favoriteBooks.push(dataID);
-        clickedElement.classList.add('favorite');
+        clickedElementParent.classList.add('favorite');
       } else {
-        clickedElementParent.remove('favorite');
+        clickedElementParent.classList.remove('favorite');
         const index = favoriteBooks.indexOf(dataID);
         console.log('index of removed element', index);
         favoriteBooks.splice(index, 1);
         console.log(clickedElement);
       }
-      console.log(favoriteBooks);
+      //console.log(favoriteBooks);
     }
   });
   // }
+  const formular = document.querySelector('.filters');
+  console.log(formular);
+  formular.addEventListener('click', function (event) {
+    if (event.target.tagName === 'input' && event.target.type === 'checkbox' && event.target.name === 'filter' && event.target != null)
+      return event.target.value;
+    console.log(event.target.value);
+
+    if (event.target.checked) {
+      filters.push(event.target.value);
+      console.log(filters);
+    } else if (!event.target.checked) {
+      // event.target.value != false;
+      const checkedBoxID = event.target.value;
+      console.log(checkedBoxID);
+      const indexToRemove = filters.indexOf(checkedBoxID);
+      if (indexToRemove >= 0) {
+        console.log(indexToRemove);
+        filters.splice(indexToRemove, 1);
+        console.log(filters);
+      }
+    }
+
+
+  });
+
 };
 
 
 initActions();
+
+
+const filters = [];
+console.log('tablica z przefiltorwanymi wartosciami inputow', filters);
+
+
