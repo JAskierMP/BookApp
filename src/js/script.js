@@ -29,12 +29,12 @@ const initActions = function () {
     //const clickedElement = okładka;
     const clickedElement = event.target;
     const clickedElementParent = clickedElement.offsetParent;
-    console.log(clickedElementParent);
+   // console.log(clickedElementParent);
 
     if (clickedElementParent.classList.contains('book__image')) {
-      console.log(clickedElementParent);
+      //console.log(clickedElementParent);
       const dataID = clickedElementParent.getAttribute('data-id');
-      console.log(dataID);
+      //console.log(dataID);
 
       if (!favoriteBooks.includes(dataID)) {
         favoriteBooks.push(dataID);
@@ -42,46 +42,77 @@ const initActions = function () {
       } else {
         clickedElementParent.classList.remove('favorite');
         const index = favoriteBooks.indexOf(dataID);
-        console.log('index of removed element', index);
+       // console.log('index of removed element', index);
         favoriteBooks.splice(index, 1);
-        console.log(clickedElement);
+       // console.log(clickedElement);
       }
       //console.log(favoriteBooks);
     }
   });
   // }
   const formular = document.querySelector('.filters');
-  console.log(formular);
+  //console.log(formular);
   formular.addEventListener('click', function (event) {
     if (event.target.tagName === 'input' && event.target.type === 'checkbox' && event.target.name === 'filter' && event.target != null)
       return event.target.value;
-    console.log(event.target.value);
+    //console.log(event.target.value);
 
     if (event.target.checked) {
       filters.push(event.target.value);
-      console.log(filters);
+     console.log(filters);
     } else if (!event.target.checked) {
       // event.target.value != false;
       const checkedBoxID = event.target.value;
-      console.log(checkedBoxID);
+     // console.log(checkedBoxID);
       const indexToRemove = filters.indexOf(checkedBoxID);
       if (indexToRemove >= 0) {
-        console.log(indexToRemove);
+        //console.log(indexToRemove);
         filters.splice(indexToRemove, 1);
-        console.log(filters);
+        //console.log(filters);
       }
     }
-
-
+    filterBooks();
   });
 
 };
+
+const filters = [];
+//console.log(filters);
+
+const formular = document.querySelector('.filters');
+const filterBooks = function() {
+  for (let book of dataSource.books) {
+    let shouldBeHidden = false;
+    for (let filter of filters) {
+      if (!book.details[filter]) {
+        console.log(filter);
+        shouldBeHidden = true; break;
+      }
+    }
+  
+    const trueElement = document.querySelector('.book__image[data-id="book.id"]'); //
+    console.log(trueElement);
+    let i = shouldBeHidden;
+
+    do {
+      console.log(i);
+      i++;
+    } while (i == true);
+
+    if (i== true) {
+      
+    }
+
+
+  }
+
+};
+//console.log(filterBooks());
 
 
 initActions();
 
 
-const filters = [];
 console.log('tablica z przefiltorwanymi wartosciami inputow', filters);
 
 
