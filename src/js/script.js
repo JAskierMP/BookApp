@@ -16,6 +16,7 @@ render();
 ////////////////////////////////
 
 const favoriteBooks = [];
+const filters = [];
 const initActions = function () {
   // const listaOkładek = document.getElementsByClassName('book__image');
   //const listaOkładekTablica = Array.from(listaOkładek);
@@ -29,7 +30,7 @@ const initActions = function () {
     //const clickedElement = okładka;
     const clickedElement = event.target;
     const clickedElementParent = clickedElement.offsetParent;
-   // console.log(clickedElementParent);
+    // console.log(clickedElementParent);
 
     if (clickedElementParent.classList.contains('book__image')) {
       //console.log(clickedElementParent);
@@ -42,15 +43,16 @@ const initActions = function () {
       } else {
         clickedElementParent.classList.remove('favorite');
         const index = favoriteBooks.indexOf(dataID);
-       // console.log('index of removed element', index);
+        // console.log('index of removed element', index);
         favoriteBooks.splice(index, 1);
-       // console.log(clickedElement);
+        // console.log(clickedElement);
       }
       //console.log(favoriteBooks);
     }
   });
   // }
   const formular = document.querySelector('.filters');
+
   //console.log(formular);
   formular.addEventListener('click', function (event) {
     if (event.target.tagName === 'input' && event.target.type === 'checkbox' && event.target.name === 'filter' && event.target != null)
@@ -59,11 +61,11 @@ const initActions = function () {
 
     if (event.target.checked) {
       filters.push(event.target.value);
-     console.log(filters);
+      console.log(filters);
     } else if (!event.target.checked) {
       // event.target.value != false;
       const checkedBoxID = event.target.value;
-     // console.log(checkedBoxID);
+      // console.log(checkedBoxID);
       const indexToRemove = filters.indexOf(checkedBoxID);
       if (indexToRemove >= 0) {
         //console.log(indexToRemove);
@@ -76,11 +78,11 @@ const initActions = function () {
 
 };
 
-const filters = [];
-//console.log(filters);
+
+console.log(filters);
 
 const formular = document.querySelector('.filters');
-const filterBooks = function() {
+const filterBooks = function () {
   for (let book of dataSource.books) {
     let shouldBeHidden = false;
     for (let filter of filters) {
@@ -89,22 +91,16 @@ const filterBooks = function() {
         shouldBeHidden = true; break;
       }
     }
-    const linkHTML = '<li><a href="data-id=' + book.id + '"><span>' + book.id + '</span></a></li>';
-    const linkHdTML = '<a href="#" class="book__image"><span>' + book.id + '</span></a>';
-    console.log(linkHTML);
-    const trueElement = document.querySelector('.book__image[book.id=linkHTML]'); //
+
+    const trueElement = document.querySelector('.book__image[data-id="' + book.id + '"]');
     console.log(trueElement);
-    let i = shouldBeHidden;
 
-    do {
-      console.log(i);
-      i++;
-    } while (i == true);
-
-    if (i== true) {
-      
+    if (shouldBeHidden == true) {
+      trueElement.classList.add('hidden');
+    } else {
+      trueElement.classList.remove('hidden');
     }
-
+    console.log(trueElement);
 
   }
 
