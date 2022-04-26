@@ -89,8 +89,10 @@ const filterBooks = function() {
         shouldBeHidden = true; break;
       }
     }
-  
-    const trueElement = document.querySelector('.book__image[data-id="book.id"]'); //
+    const linkHTML = '<li><a href="data-id=' + book.id + '"><span>' + book.id + '</span></a></li>';
+    const linkHdTML = '<a href="#" class="book__image"><span>' + book.id + '</span></a>';
+    console.log(linkHTML);
+    const trueElement = document.querySelector('.book__image[book.id=linkHTML]'); //
     console.log(trueElement);
     let i = shouldBeHidden;
 
