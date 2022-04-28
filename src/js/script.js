@@ -5,9 +5,13 @@ const booksListElement = listaKsiazek.item(0);
 
 function render() {
   for (let book of dataSource.books) {
+    book.ratingWidth = book.rating * 10;
+    book.ratingBgc = determineRatingBgc(book.rating);
     const generatedHTML = bookTemplate(book);
     const DOMElement = utils.createDOMFromHTML(generatedHTML);
     booksListElement.appendChild(DOMElement);
+
+  
   }
 }
 
@@ -81,7 +85,7 @@ const initActions = function () {
 
 console.log(filters);
 
-const formular = document.querySelector('.filters');
+//const formular = document.querySelector('.filters');
 const filterBooks = function () {
   for (let book of dataSource.books) {
     let shouldBeHidden = false;
@@ -106,6 +110,19 @@ const filterBooks = function () {
 
 };
 //console.log(filterBooks());
+
+function determineRatingBgc(rating) {
+
+  if (rating < 6) {
+    return 'background: linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+  } else if (rating > 6 && rating <= 8) {
+    return 'background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+  } else if (rating > 8 && rating <= 9) {
+    return 'background: linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+  } else if (rating > 9) {
+    return 'background: linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+  }
+}
 
 
 initActions();
